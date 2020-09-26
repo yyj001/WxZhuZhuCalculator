@@ -7,8 +7,32 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    array: ['美国', '中国', '巴西', '日本'],
+    objectArray: [
+      {
+        id: 0,
+        name: '美国'
+      },
+      {
+        id: 1,
+        name: '中国'
+      },
+      {
+        id: 2,
+        name: '巴西'
+      },
+      {
+        id: 30,
+        name: '日本'
+      }
+    ],
+    index: 0,
+    qualityValue: "wed",
   },
+
+
+
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -50,5 +74,25 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+
+  bindPickerChange: function(e) {
+    console.log('picker发送选择改变，携带值为', e.id)
+    this.setData({
+      index: e.detail.value
+    })
+  },
+
+  qualityInput: function(e){
+    this.setData({
+      qualityValue: e.detail.value
+    })
+  },
+
+
+  calculate: function(e){
+    console.log('picker发送选择改变，携带值为', this.data.qualityValue)
+    // val quality = 
   }
+  
 })
