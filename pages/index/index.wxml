@@ -19,40 +19,67 @@
 			<image src="../images/quality.png" class="text_icon"></image>
 		</view>
 		<text class="text-label"> 质量:</text>
-		<input class="edittext" type="number" value="{{qualityValue}}" bindinput="qualityInput">
+		<input class="edittext" type="number" value="{{qualityTextValue}}" bindinput="qualityInput">
 		</input>
 		<view>
 			<image src="../images/down.png" class="picker_icon"></image>
 		</view>
 		<view>
-			<picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+			<picker id="p1" bindchange="bindPickerChange" value="{{qualityUnitIndex}}" range="{{qualityArray}}">
 				<view>
-					{{array[index]}}
+					{{qualityArray[qualityUnitIndex]}}
 				</view>
 			</picker>
 		</view>
 	</view>
-	
+
 	<!-- 浓度 -->
 	<view class="horizontal_layout">
 		<view>
 			<image src="../images/concentration.png" class="text_icon"></image>
 		</view>
 		<text class="text-label"> 浓度:</text>
-		<input class="edittext" type="number"></input>
+		<input class="edittext" type="number" value="{{concentrationTextValue}}" bindinput="concentrationInput"></input>
 		<view>
 			<image src="../images/down.png" class="picker_icon"></image>
 		</view>
 		<view>
-			<picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+			<picker id="p2" bindchange="bindPickerChange" value="{{concentrationUnitIndex}}" range="{{concentrationArray}}">
 				<view>
-					{{array[index]}}
+					{{concentrationArray[concentrationUnitIndex]}}
 				</view>
 			</picker>
 		</view>
 	</view>
 
-<button bindtap="calculate">计算</button>
+	<!-- 体积 -->
+	<view class="horizontal_layout">
+		<view>
+			<image src="../images/size.png" class="text_icon"></image>
+		</view>
+		<text class="text-label"> 体积:</text>
+		<input class="edittext" type="number" value="{{sizeTextValue}}" bindinput="sizeInput"></input>
+		<view>
+			<image src="../images/down.png" class="picker_icon"></image>
+		</view>
+		<view>
+			<picker id="p3" bindchange="bindPickerChange" value="{{sizeUnitIndex}}" range="{{sizeArray}}">
+				<view>
+					{{sizeArray[sizeUnitIndex]}}
+				</view>
+			</picker>
+		</view>
+	</view>
 
+	<!-- 分子量 -->
+	<view class="horizontal_layout">
+		<view>
+			<image src="../images/molecularKey.png" class="text_icon2"></image>
+		</view>
+		<text class="text-label"> 分子量:</text>
+		<input class="edittext" type="number" value="{{moleculeTextValue}}" bindinput="moleculeInput"></input>
+	</view>
+
+<button bindtap="calculate">计算</button>
 
 </view>

@@ -44,6 +44,16 @@ input{
   margin-bottom: 10rpx;
 }
 
+.edittext2{
+  width: 100%;
+  justify-content:center;
+  background-color: #eee;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  margin-right: 30rpx;
+}
+
 .tips{
   text-align: center;
   font-size: 10pt;
@@ -69,6 +79,13 @@ picker{
   margin-top: 25rpx;
 }
 
+.text_icon2{
+  width: 50rpx ;
+  height: 50rpx;
+  margin-left: 35rpx;
+  margin-top: 25rpx;
+}
+
 .picker_icon{
   width: 40rpx ;
   height: 40rpx;
@@ -79,7 +96,7 @@ picker{
 .text-label{
   height: auto;
   font-size: 40rpx;
-  width: 180rpx;
+  width: 200rpx;
   color: gray;
   font-weight: 100;
   margin-top: 23rpx;

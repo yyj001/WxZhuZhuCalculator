@@ -4,31 +4,25 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    array: ['美国', '中国', '巴西', '日本'],
-    objectArray: [
-      {
-        id: 0,
-        name: '美国'
-      },
-      {
-        id: 1,
-        name: '中国'
-      },
-      {
-        id: 2,
-        name: '巴西'
-      },
-      {
-        id: 30,
-        name: '日本'
-      }
-    ],
-    index: 0,
-    qualityValue: "wed",
+    // 质量
+    qualityArray: ['pg', 'ng', 'ug', 'mg', 'g', 'kg'],
+    qualityUnitIndex: 3,
+    qualityTextValue: "wed",
+    // 浓度
+    concentrationArray: ['fM', 'pM', 'nM', 'uM', 'mM', 'M'],
+    concentrationUnitIndex: 3,
+    concentrationTextValue: "nongdu",
+    // 体积
+    sizeArray: ['nL', 'uL', 'mL', 'L'],
+    sizeUnitIndex: 2,
+    sizeTextValue: "size",
+    // 体积
+    sizeArray: ['nL', 'uL', 'mL', 'L'],
+    sizeUnitIndex: 2,
+    sizeTextValue: "size",
+    // 分子量
+    moleculeTextValue: "fenzi",
   },
 
 
@@ -67,31 +61,46 @@ Page({
       })
     }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
+
 
   bindPickerChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.id)
-    this.setData({
-      index: e.detail.value
-    })
+    console.log('picker发送选择改变，携带值为', e.currentTarget.id)
+    if(e.currentTarget.id == "p1"){
+      this.setData({qualityUnitIndex: e.detail.value})
+    } else if(e.currentTarget.id == "p2"){
+      this.setData({concentrationUnitIndex: e.detail.value})
+    } else if(e.currentTarget.id == "p3"){
+      this.setData({sizeUnitIndex: e.detail.value})
+    } 
   },
+
 
   qualityInput: function(e){
     this.setData({
-      qualityValue: e.detail.value
+      qualityTextValue: e.detail.value
     })
   },
 
+  concentrationInput: function(e){
+    this.setData({
+      concentrationTextValue: e.detail.value
+    })
+  },
+
+  sizeInput: function(e){
+    this.setData({
+      sizeTextValue: e.detail.value
+    })
+  },
+
+  moleculeInput: function(e){
+    this.setData({
+      moleculeTextValue: e.detail.value
+    })
+  },
 
   calculate: function(e){
-    console.log('picker发送选择改变，携带值为', this.data.qualityValue)
+    console.log('picker发送选择改变，携带值为', this.data.qualityTextValue, this.data.concentrationTextValue, this.data.sizeTextValue, this.data.moleculeTextValue)
     // val quality = 
   }
   
