@@ -5,27 +5,23 @@ const app = getApp()
 Page({
   data: {
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    // 质量
-    qualityArray: ['pg', 'ng', 'ug', 'mg', 'g', 'kg'],
+    qualityArray: [{unit:0.000000001, name:'pg'}, {unit:0.000001, name:'ng'}, {unit:0.001, name:'ug'},
+     {unit:1, name:'mg'}, {unit:1000, name:'g'}, {unit:1000000, name:'kg'}],
     qualityUnitIndex: 3,
-    qualityTextValue: "wed",
+    qualityTextValue: "",
     // 浓度
-    concentrationArray: ['fM', 'pM', 'nM', 'uM', 'mM', 'M'],
-    concentrationUnitIndex: 3,
-    concentrationTextValue: "nongdu",
+    concentrationArray: [{unit:0.000000000001, name:'fM'}, {unit:0.000000001, name:'pM'}, 
+    {unit:0.000001, name:'nM'}, {unit:0.001, name:'uM'}, {unit:1, name:'mM'}, {unit:1000, name:'M'}],
+    concentrationUnitIndex: 4,
+    concentrationTextValue: "",
     // 体积
-    sizeArray: ['nL', 'uL', 'mL', 'L'],
+    sizeArray: [{unit:0.000001, name:'nL'}, {unit:0.001, name:'uL'}, {unit:1, name:'mL'}, {unit:1000, name:'L'}],
     sizeUnitIndex: 2,
-    sizeTextValue: "size",
-    // 体积
-    sizeArray: ['nL', 'uL', 'mL', 'L'],
-    sizeUnitIndex: 2,
-    sizeTextValue: "size",
+    sizeTextValue: "",
+
     // 分子量
-    moleculeTextValue: "fenzi",
+    moleculeTextValue: "",
   },
-
-
 
   //事件处理函数
   bindViewTap: function() {
@@ -33,34 +29,7 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
+  
 
 
   bindPickerChange: function(e) {
@@ -75,33 +44,44 @@ Page({
   },
 
 
-  qualityInput: function(e){
-    this.setData({
-      qualityTextValue: e.detail.value
-    })
-  },
-
-  concentrationInput: function(e){
-    this.setData({
-      concentrationTextValue: e.detail.value
-    })
-  },
-
-  sizeInput: function(e){
-    this.setData({
-      sizeTextValue: e.detail.value
-    })
-  },
-
-  moleculeInput: function(e){
-    this.setData({
-      moleculeTextValue: e.detail.value
-    })
+  bindTextInput: function(e){
+    if(e.currentTarget.id == "i1"){
+      this.setData({qualityTextValue: e.detail.value})
+    } else if(e.currentTarget.id == "i2"){
+      this.setData({concentrationTextValue: e.detail.value})
+    } else if(e.currentTarget.id == "i3"){
+      this.setData({sizeTextValue: e.detail.value})
+    } else if(e.currentTarget.id == "i4"){
+      this.setData({moleculeTextValue: e.detail.value})
+    } 
   },
 
   calculate: function(e){
     console.log('picker发送选择改变，携带值为', this.data.qualityTextValue, this.data.concentrationTextValue, this.data.sizeTextValue, this.data.moleculeTextValue)
-    // val quality = 
+    var qualityValue = parseFloat(this.data.qualityTextValue) * this.data.qualityArray[this.data.qualityUnitIndex].unit;
+    var concentrationValue = parseFloat(this.data.concentrationTextValue) * this.data.concentrationArray[this.data.concentrationUnitIndex].unit;
+    var sizeValue = parseFloat(this.data.sizeTextValue) * this.data.sizeArray[this.data.sizeUnitIndex].unit;
+    var moleculeValue = parseFloat(this.data.moleculeTextValue);
+    if(isNaN(moleculeValue)){
+      wx.showToast({title: '分子量不可为空',  icon: 'none',  mask: 'true'})
+    }else if(!isNaN(concentrationValue) && !isNaN(sizeValue) && !isNaN(moleculeValue)){
+      // 质量
+      var qValue = concentrationValue * sizeValue * moleculeValue / this.data.qualityArray[this.data.qualityUnitIndex].unit;
+      if(qValue < 0.000001 || qValue > 1000000){
+        qValue = qValue.toExponential(9).toString()
+      }
+      this.setData({qualityTextValue: qValue});
+    }else if(!isNaN(qualityValue) && !isNaN(sizeValue) && !isNaN(moleculeValue) && isNaN(concentrationValue)){
+      // 浓度
+      var cValue = qualityValue / sizeValue / moleculeValue / this.data.concentrationArray[this.data.concentrationUnitIndex].unit;
+      this.setData({concentrationTextValue: cValue});
+    }else if(!isNaN(qualityValue) && isNaN(sizeValue) && !isNaN(moleculeValue) && !isNaN(concentrationValue)){
+      // 体积
+      var value = qualityValue / concentrationValue / moleculeValue / this.data.sizeArray[this.data.sizeUnitIndex].unit;
+      this.setData({sizeTextValue: value});
+    }else{
+      wx.showToast({title: '参数不足', icon: 'none', mask: 'true'})
+    }
   }
   
 })
