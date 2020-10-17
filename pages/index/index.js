@@ -5,8 +5,8 @@ const app = getApp()
 Page({
   data: {
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    qualityArray: [{unit:0.000000001, name:'pg'}, {unit:0.000001, name:'ng'}, {unit:0.001, name:'ug'},
-     {unit:1, name:'mg'}, {unit:1000, name:'g'}, {unit:1000000, name:'kg'}],
+    qualityArray: [{unit:0.000001, name:'pg'}, {unit:0.001, name:'ng'}, {unit:1, name:'ug'},
+     {unit:1000, name:'mg'}, {unit:1000000, name:'g'}, {unit:1000000000, name:'kg'}],
     qualityUnitIndex: 3,
     qualityTextValue: "",
     // 浓度
