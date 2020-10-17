@@ -14,12 +14,12 @@
 		质量 (mg) = 浓度 (mM) x 体积 (mL) x 分子量 (g/mol)
 	</view>
 	<!-- 质量 -->
-	<view class="horizontal_layout">
+	<view class="{{itemClass1}}" id="item1">
 		<view>
 			<image src="../images/quality.png" class="text_icon"></image>
 		</view>
 		<text class="text-label"> 质量:</text>
-		<input id="i1" class="edittext" type="number" value="{{qualityTextValue}}" bindinput="bindTextInput">
+		<input id="i1" class="edittext" type="number" value="{{qualityTextValue}}" bindinput="bindTextInput" bindfocus="inputFocus" bindblur="inputBlur">
 		</input>
 		<view>
 			<image src="../images/down.png" class="picker_icon"></image>
@@ -34,12 +34,12 @@
 	</view>
 
 	<!-- 浓度 -->
-	<view class="horizontal_layout">
+	<view class="{{itemClass2}}" id="item2">
 		<view>
 			<image src="../images/concentration.png" class="text_icon"></image>
 		</view>
 		<text class="text-label"> 浓度:</text>
-		<input id="i2" class="edittext" type="number" value="{{concentrationTextValue}}" bindinput="bindTextInput"></input>
+		<input id="i2" class="edittext" type="number" value="{{concentrationTextValue}}" bindinput="bindTextInput" bindfocus="inputFocus" bindblur="inputBlur"></input>
 		<view>
 			<image src="../images/down.png" class="picker_icon"></image>
 		</view>
@@ -53,12 +53,12 @@
 	</view>
 
 	<!-- 体积 -->
-	<view class="horizontal_layout">
+	<view class="{{itemClass3}}" id="item3">
 		<view>
 			<image src="../images/size.png" class="text_icon"></image>
 		</view>
 		<text class="text-label"> 体积:</text>
-		<input id="i3" class="edittext" type="number" value="{{sizeTextValue}}" bindinput="bindTextInput"></input>
+		<input id="i3" class="edittext" type="number" value="{{sizeTextValue}}" bindinput="bindTextInput"  bindfocus="inputFocus" bindblur="inputBlur"></input>
 		<view>
 			<image src="../images/down.png" class="picker_icon"></image>
 		</view>
@@ -72,12 +72,12 @@
 	</view>
 
 	<!-- 分子量 -->
-	<view class="horizontal_layout">
+	<view class="{{itemClass4}}" id="item4">
 		<view>
 			<image src="../images/molecularKey.png" class="text_icon2"></image>
 		</view>
 		<text class="text-label"> 分子量:</text>
-		<input id="i4" class="edittext" type="number" value="{{moleculeTextValue}}" bindinput="bindTextInput" placeholder="必填项"></input>
+		<input id="i4" class="edittext" type="number" value="{{moleculeTextValue}}" bindinput="bindTextInput" placeholder=" 必填项"  bindfocus="inputFocus" bindblur="inputBlur" placeholder-style='font-size: 38rpx;color: #999999;'></input>
 	</view>
 
 <button bindtap="calculate">计算</button>

@@ -21,6 +21,12 @@ Page({
 
     // 分子量
     moleculeTextValue: "",
+
+    //选中态
+    itemClass1: 'horizontal_layout',
+    itemClass2: 'horizontal_layout',
+    itemClass3: 'horizontal_layout',
+    itemClass4: 'horizontal_layout',
   },
 
   //事件处理函数
@@ -53,6 +59,36 @@ Page({
       this.setData({sizeTextValue: e.detail.value})
     } else if(e.currentTarget.id == "i4"){
       this.setData({moleculeTextValue: e.detail.value})
+    } 
+  },
+
+  inputFocus: function(e){
+    console.log('监听focus', e.currentTarget.id)
+    if(e.currentTarget.id == "i1"){
+      this.setData({itemClass1: 'horizontal_layout_selected'})
+    } else if(e.currentTarget.id == "i2"){
+      this.setData({itemClass2: 'horizontal_layout_selected'})
+    } else if(e.currentTarget.id == "i3"){
+      this.setData({itemClass3: 'horizontal_layout_selected'})
+    } else if(e.currentTarget.id == "i4"){
+      this.setData({itemClass4: 'horizontal_layout_selected'})
+    } 
+  },
+
+  selectItem: function() {
+    return 1;
+  },
+
+  inputBlur: function(e){
+    console.log('取消focus', e.currentTarget.id)
+    if(e.currentTarget.id == "i1"){
+      this.setData({itemClass1: 'horizontal_layout'})
+    } else if(e.currentTarget.id == "i2"){
+      this.setData({itemClass2: 'horizontal_layout'})
+    } else if(e.currentTarget.id == "i3"){
+      this.setData({itemClass3: 'horizontal_layout'})
+    } else if(e.currentTarget.id == "i4"){
+      this.setData({itemClass4: 'horizontal_layout'})
     } 
   },
 
