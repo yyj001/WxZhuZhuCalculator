@@ -18,15 +18,15 @@ Page({
     sizeArray: [{unit:0.000001, name:'nL'}, {unit:0.001, name:'uL'}, {unit:1, name:'mL'}, {unit:1000, name:'L'}],
     sizeUnitIndex: 2,
     sizeTextValue: "",
-
     // 分子量
     moleculeTextValue: "",
-
     //选中态
-    itemClass1: 'horizontal_layout',
-    itemClass2: 'horizontal_layout',
-    itemClass3: 'horizontal_layout',
-    itemClass4: 'horizontal_layout',
+    color1: '#f3f3f3',
+    color2: '#fff',
+    color3: '#fff',
+    color4: '#fff',
+
+    selectedIndex: 0,
   },
 
   //事件处理函数
@@ -64,31 +64,52 @@ Page({
 
   inputFocus: function(e){
     console.log('监听focus', e.currentTarget.id)
-    if(e.currentTarget.id == "i1"){
-      this.setData({itemClass1: 'horizontal_layout_selected'})
-    } else if(e.currentTarget.id == "i2"){
-      this.setData({itemClass2: 'horizontal_layout_selected'})
-    } else if(e.currentTarget.id == "i3"){
-      this.setData({itemClass3: 'horizontal_layout_selected'})
-    } else if(e.currentTarget.id == "i4"){
-      this.setData({itemClass4: 'horizontal_layout_selected'})
+    this.setData({color1: '#fff'})
+    this.setData({color2: '#fff'})
+    this.setData({color3: '#fff'})
+    this.setData({color4: '#fff'})
+
+    if(e.currentTarget.id == "item1"){
+      this.setData({color1: '#f3f3f3' ,selectedIndex: 0})
+      
+    } else if(e.currentTarget.id == "item2"){
+      this.setData({color2: '#f3f3f3', selectedIndex: 1})
+      
+    } else if(e.currentTarget.id == "item3"){
+      this.setData({color3: '#f3f3f3', selectedIndex :2})
+      
+    } else if(e.currentTarget.id == "item4"){
+      this.setData({color4: '#f3f3f3', selectedIndex :3})
     } 
   },
 
-  selectItem: function() {
-    return 1;
+  setSelectIndex: function(index){
+    console.log(index)
+    this.setData({color1: '#fff'})
+    this.setData({color2: '#fff'})
+    this.setData({color3: '#fff'})
+    this.setData({color4: '#fff'})
+    if(index == 0){
+      this.setData({color1: '#f3f3f3' ,selectedIndex: 0})
+    } else if(index == 1){
+      this.setData({color2: '#f3f3f3', selectedIndex: 1})
+    } else if(index == 2){
+      this.setData({color3: '#f3f3f3', selectedIndex :2})
+    } else if(index == 3){
+      this.setData({color4: '#f3f3f3', selectedIndex :3})
+    } 
   },
 
   inputBlur: function(e){
     console.log('取消focus', e.currentTarget.id)
     if(e.currentTarget.id == "i1"){
-      this.setData({itemClass1: 'horizontal_layout'})
+      this.setData({color1: '#fff'})
     } else if(e.currentTarget.id == "i2"){
-      this.setData({itemClass2: 'horizontal_layout'})
+      this.setData({color2: '#fff'})
     } else if(e.currentTarget.id == "i3"){
-      this.setData({itemClass3: 'horizontal_layout'})
+      this.setData({color3: '#fff'})
     } else if(e.currentTarget.id == "i4"){
-      this.setData({itemClass4: 'horizontal_layout'})
+      this.setData({color4: '#fff'})
     } 
   },
 
@@ -118,6 +139,65 @@ Page({
     }else{
       wx.showToast({title: '参数不足', icon: 'none', mask: 'true'})
     }
+  },
+
+  getSelectedText: function(){
+    if(this.data.selectedIndex == 0){
+      return this.data.qualityTextValue
+    }else if(this.data.selectedIndex == 1){
+      return this.data.concentrationTextValue
+    }else if(this.data.selectedIndex == 2){
+      return this.data.sizeTextValue
+    }else{
+      return this.data.moleculeTextValue
+    }
+  },
+
+  setSelectedText: function(text){
+    if(this.data.selectedIndex == 0){
+      this.setData({qualityTextValue: text})
+    }else if(this.data.selectedIndex == 1){
+      this.setData({concentrationTextValue: text})
+    }else if(this.data.selectedIndex == 2){
+      this.setData({sizeTextValue: text})
+    }else{
+      this.setData({moleculeTextValue: text})
+    }
+  },
+
+  onKeyClick: function(e){
+    var text = this.getSelectedText().toString()
+    if(e.currentTarget.id == "key_delete"){
+      if(text.length > 0){
+        text = text.substring(0,text.length - 1)
+      }
+      this.setSelectedText(text)
+    } else if(e.currentTarget.id == "key_move_up"){
+      var index = (this.data.selectedIndex - 1 ) % 4
+      if(index < 0){
+        index = 3
+      }
+      this.setSelectIndex(index)
+    } else if(e.currentTarget.id == "key_move_down"){
+      var index = (this.data.selectedIndex + 1 ) % 4
+      this.setSelectIndex(index)
+    } else if(e.currentTarget.id == "key_equal"){
+      this.calculate(e)
+    } else {
+      text = text + e.currentTarget.dataset.num
+      this.setSelectedText(text)
+    } 
+  },
+
+  clearText: function(e){
+    this.setSelectedText('')
+    wx.vibrateShort({
+      success: (res) => {
+        console.log('viberate sucess')
+      },
+    })
   }
+
+
   
 })

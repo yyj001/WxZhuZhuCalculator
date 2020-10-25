@@ -1,0 +1,58 @@
+<view class="keyboard horizontal_layout"> 
+  <view class="vertical_layout">
+    <view class="key" bindtap="onKeyClick" data-num='7'>
+      <image src="../images/icon-test_7.png" class="key_image" />
+    </view>
+    <view class="key" bindtap="onKeyClick" data-num='4'>
+      <image src="../images/icon-test_4.png" class="key_image" />
+    </view>
+    <view class="key" bindtap="onKeyClick" data-num='1'>
+      <image src="../images/icon-test_1.png" class="key_image"/>
+    </view>
+    <view class="key" bindtap="onKeyClick" data-num='.'>
+      <image src="../images/point.png" class="key_image"/>
+    </view>
+  </view>
+
+  <view class="vertical_layout">
+    <view class="key" bindtap="onKeyClick" data-num='8'>
+      <image src="../images/icon-test_8.png" class="key_image"/>
+    </view>
+    <view class="key" bindtap="onKeyClick" data-num='5'>
+      <image src="../images/icon-test_5.png" class="key_image"/>
+    </view>
+    <view class="key" bindtap="onKeyClick" data-num='2'>
+      <image src="../images/icon-test_2.png" class="key_image" />
+    </view>
+    <view class="key" bindtap="onKeyClick" data-num='0'>
+      <image src="../images/icon-test_0.png" class="key_image"/>
+    </view>
+  </view>
+
+  <view class="vertical_layout">
+    <view class="key" bindtap="onKeyClick" data-num='9'>
+      <image src="../images/icon-test_9.png" class="key_image"/>
+    </view>
+    <view class="key" bindtap="onKeyClick" data-num='6'>
+      <image src="../images/icon-test_6.png" class="key_image" />
+    </view>
+    <view class="key"bindtap="onKeyClick" data-num='3'>
+      <image src="../images/icon-test_3.png" class="key_image" />
+    </view>
+    <view class="key" id="key_delete" bindtap="onKeyClick" bindlongpress="clearText">
+      <image src="../images/delete.png" class="key_image"/>
+    </view>
+  </view>
+
+  <view class="vertical_layout">
+    <view class="key_move" id="key_move_up" bindtap="onKeyClick">
+      <image src="../images/move_up.png" class="key_image"/>
+    </view>
+    <view class="key_move" id="key_move_down" bindtap="onKeyClick">
+      <image src="../images/move_down.png" class="key_image" />
+    </view>
+    <view class="key_equal" id="key_equal" bindtap="onKeyClick">
+      <image src="../images/equal.png" class="key_image"/>
+    </view>
+  </view>
+</view>
